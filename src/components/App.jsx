@@ -56,7 +56,7 @@ function App() {
     function pauseTimer() {
       setRemainingIntervals(0)
       setTimeLeft(0)
-      // toggle()
+      // setIsActive(false)
     }
     function restartIntervals() {
       setRemainingIntervals(totalIntervals)
