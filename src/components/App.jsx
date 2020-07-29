@@ -22,12 +22,15 @@ function App() {
       if (!timeLeft)
         return;
 
+      // Note: adding the isActive condition breaks the countdown
+      // restarting automatically with the next interval
+
       // const interval = null
       // if (isActive) {
       const interval = setInterval(function() {
         setTimeLeft(timeLeft - 1);
       }, 1000);
-      // } else if (!isActive && seconds !== 0) {
+      // } else if (!isActive && timeLeft !== 0) {
       //   clearInterval(interval);
       // }
 
