@@ -42,10 +42,12 @@ function App() {
 
     function start() {
       setTimeLeft(intervalDuration)
+      // setIsActive(true)
     }
     function pauseTimer() {
       setRemainingIntervals(0)
       setTimeLeft(0)
+      // toggle()
     }
     function restartIntervals() {
       setRemainingIntervals(totalIntervals)
