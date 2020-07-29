@@ -22,10 +22,13 @@ function App() {
       if (!timeLeft)
         return;
 
+      // const interval = null
       // if (isActive) {
       const interval = setInterval(function() {
         setTimeLeft(timeLeft - 1);
       }, 1000);
+      // } else if (!isActive && seconds !== 0) {
+      //   clearInterval(interval);
       // }
 
       return() => clearInterval(interval);
