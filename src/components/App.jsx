@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react"
 
 function App() {
+  const initialIntervals = 30
+  const intervalDuration = 30
 
-  const [totalIntervals, setTotalIntervals] = useState(32)
+  const [totalIntervals, setTotalIntervals] = useState(initialIntervals)
   const [remainingIntervals, setRemainingIntervals] = useState(totalIntervals)
-  const intervalDuration = 10
 
   const bringAudio = new Audio("http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a")
   const popAudio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3")
