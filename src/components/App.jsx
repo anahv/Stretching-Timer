@@ -94,7 +94,7 @@ function App() {
 
       <div className="row">
         <div className="col-md-3 offset-md-3">
-          <p id="intervalsTitle"> Intervals </p>
+          <p id="intervalsTitle"> Intervals Left </p>
           <h2 id="intervalsLeft">
             {remainingIntervals}{" "}
             / {totalIntervals}

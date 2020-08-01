@@ -83,7 +83,7 @@ button:hover {
   height: 30px;
   border-radius: 100px;
   text-align: center;
-  margin: 8px 5px 0px 5px;
+  margin: 5px 5px 0px 5px;
   background-color: #778ca3;
   color: #d1d8e0 !important;
 }
@@ -112,5 +112,5 @@ button:hover {
   color: #333;
   text-align: center;
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
