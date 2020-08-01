@@ -1,5 +1,5 @@
 # Stretching-Timer
-A 30-second interval timer built in React.js
+An interval timer built in React.js.
 
 ![Stretching Timer screenshot](/public/timer2.png)
 
