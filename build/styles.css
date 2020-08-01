@@ -11,40 +11,34 @@ html {
 body {
   background: #eee;
   padding: 0 16px;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
 }
 
-header {
+.header {
   background-color: #fc5c65;
-  margin: auto -16px;
+  margin-left: -50px !important;
+  margin-right: -50px !important;
   padding: 20px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-header h1 {
+.header h1 {
   color: #fff;
   font-family: "Lobster", cursive;
   text-align: center;
   font-size: 2em;
 }
 
-h1 {
-  color: #333;
-}
-h2 {
-  font-weight: 400;
-}
-
-.timer {
+.timer h1 {
   text-align: center;
-  margin-top: 30px;
-  font-size: 8em;
-  font-weight: 400;
+  font-size: 18em !important;
+  font-weight: 500;
 }
 
 button {
-  width: 140px;
+  width: 100px;
   height: 45px;
-  margin: 10px 30px;
+  margin: 15px 30px;
   font-family: 'Roboto', sans-serif;
   font-size: 11px;
   text-transform: uppercase;
@@ -53,7 +47,7 @@ button {
   color: #333;
   background-color: #26de81;
   border: none;
-  border-radius: 45px;
+  border-radius: 45px !important;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   cursor: pointer;
@@ -61,7 +55,6 @@ button {
 }
 
 button:hover {
-  /* background-color: #2EE59D; */
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
   /* color: #fff; */
   transform: translateY(-7px);
@@ -105,7 +98,19 @@ button:hover {
 
 #intervalsLeft {
   text-align: center;
-  margin-top: 30px;
+  letter-spacing: 1px;
   font-size: 2em;
   color: #333;
+}
+
+#intervalsTitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }

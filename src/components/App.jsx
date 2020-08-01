@@ -1,114 +1,154 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react";
 
 function App() {
-  const initialIntervals = 30
-  const intervalDuration = 30
+  const initialIntervals = 30;
+  const initialIntervalDuration = 30;
 
-  const [totalIntervals, setTotalIntervals] = useState(initialIntervals)
-  const [remainingIntervals, setRemainingIntervals] = useState(totalIntervals)
+  const [totalIntervals, setTotalIntervals] = useState(initialIntervals);
+  const [intervalDuration, setIntervalDuration] = useState(initialIntervalDuration);
+  const [remainingIntervals, setRemainingIntervals] = useState(totalIntervals);
+  const [isActive, setIsActive] = useState(false);
 
-  const bringAudio = new Audio("http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a")
-  const popAudio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3")
+  const bringAudio = new Audio(
+    "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
+  const popAudio = new Audio(
+    "http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3");
 
-  const Timer = ({seconds}) => {
-    const [timeLeft, setTimeLeft] = useState(seconds);
-    // const [isActive, setIsActive] = useState(false)
+  const Timer = () => {
+    const [timeLeft, setTimeLeft] = useState(intervalDuration);
 
-    // function toggle() {
-    //   setIsActive(!isActive)
-    // }
+    useEffect(
+      () => {
+        let interval = null;
 
-    useEffect(() => {
-      if (!timeLeft)
-        return;
-
-      // Note: adding the isActive condition breaks the countdown
-      // restarting automatically with the next interval
-
-      // const interval = null
-      // if (isActive) {
-      const interval = setInterval(function() {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-      // } else if (!isActive && timeLeft !== 0) {
-      //   clearInterval(interval);
-      // }
-
-      return() => clearInterval(interval);
-    }, [timeLeft]);
+        if (isActive) {
+          interval = setInterval(function() {
+            setTimeLeft(timeLeft - 1);
+          }, 1000);
+        } else if (!isActive && timeLeft !== 0) {
+          clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+      },
+      [timeLeft]
+    );
 
     if (remainingIntervals === 0) {
       if (!timeLeft) {
-        bringAudio.play()
+        bringAudio.play();
       } else if (timeLeft < 6) {
-        popAudio.play()
+        popAudio.play();
       }
-    } else if (remainingIntervals > 0 && !timeLeft) {
-      setRemainingIntervals(remainingIntervals - 1)
-      setTimeLeft(intervalDuration)
+    } else if (remainingIntervals > 0 && timeLeft === 0) {
+      setRemainingIntervals(remainingIntervals - 1);
       bringAudio.play();
     }
 
     function start() {
-      setTimeLeft(intervalDuration)
-      // setIsActive(true)
-    }
-    function pauseTimer() {
-      setRemainingIntervals(0)
-      setTimeLeft(0)
-      // setIsActive(false)
-    }
-    function restartIntervals() {
-      setRemainingIntervals(totalIntervals)
-      setTimeLeft(intervalDuration)
-      // setIsActive(false)
+      setTimeLeft(intervalDuration);
+      setIsActive(true);
     }
 
-    return (<div>
-      <div className="timer">
-        <h1>{timeLeft}</h1>
+    function pauseTimer() {
+      setIsActive(false);
+    }
+
+    function restartIntervals() {
+      setRemainingIntervals(totalIntervals);
+      setTimeLeft(intervalDuration);
+      setIsActive(false);
+    }
+
+    return (
+      <div>
+        <div className="timer row">
+          <div className="col-md-12">
+            <h1> {timeLeft} </h1>{" "}
+          </div>
+        </div>
+        <div className="buttons row">
+          <button id="start" className="button col-md-2" onClick={start}>
+            Start <i className="fa fa-play"> </i>
+          </button>
+          <button id="pause" className="button col-md-2" onClick={pauseTimer}>
+            Stop <i className="fa fa-pause"> </i>
+          </button>
+          <button
+            id="restart"
+            className="button col-md-2"
+            onClick={restartIntervals}>
+            Reset <i className="fa fa-repeat"> </i>
+          </button>
+        </div>
       </div>
-      <div className="buttons">
-        <button id="start" className="button" onClick={start}>
-          Start
-          <i className="fa fa-play"></i>
-        </button>
-        <button id="pause" onClick={pauseTimer}>Stop<i className="fa fa-pause"></i>
-        </button>
-        <button id="restart" onClick={restartIntervals}>Restart<i className="fa fa-repeat"></i>
-        </button>
-      </div>
-    </div>);
+    );
   };
 
-  return (<div className="container">
-    <header>
-      <h1>Stretching Timer</h1>
-    </header>
+  return (
+    <div className="container-fluid">
+      <div className="row header">
+        <div className="col-md-12 ">
+          <h1> Stretching Timer </h1>
+        </div>
+      </div>
 
-    <h2 id="intervalsLeft">
-      {remainingIntervals}
-      /{totalIntervals}
-    </h2>
-    <div className="buttons">
-      <button id="plus" onClick={x => {
-          setTotalIntervals(totalIntervals - 1);
-        }}>
-        <i className="fa fa-minus"></i>
-      </button>
-      <button id="plus" onClick={x => {
-          setTotalIntervals(totalIntervals + 1);
-        }}>
-        <i className="fa fa-plus"></i>
-      </button>
+      <div className="row">
+        <div className="col-md-3 offset-md-3">
+          <p id="intervalsTitle"> Intervals </p>
+          <h2 id="intervalsLeft">
+            {remainingIntervals}{" "}
+            / {totalIntervals}
+          </h2>
+          <div className="buttons">
+            <button
+              id="plus"
+              onClick={x => {
+                setTotalIntervals(totalIntervals - 1);
+                setRemainingIntervals(remainingIntervals - 1)
+              }}
+            >
+              <i className="fa fa-minus"> </i>
+            </button>
+            <button
+              id="plus"
+              onClick={x => {
+                setTotalIntervals(totalIntervals + 1)
+                setRemainingIntervals(remainingIntervals + 1)
+              }}
+            >
+              <i className="fa fa-plus"> </i>
+            </button>
+          </div>
+        </div>
+
+        <div className="col-md-3">
+          <p id="intervalsTitle"> Interval duration </p>
+          <h2 id="intervalsLeft">{intervalDuration}s</h2>
+          <div className="buttons">
+            <button
+              id="plus"
+              onClick={x => {
+                setIntervalDuration(intervalDuration - 5);
+              }}
+            >
+              <i className="fa fa-minus"> </i>
+            </button>
+            <button
+              id="plus"
+              onClick={x => {
+                setIntervalDuration(intervalDuration + 5);
+              }}>
+              <i className="fa fa-plus"> </i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <Timer />
     </div>
-
-    <Timer seconds={intervalDuration}/>
-
-  </div>);
+  );
 }
 
-export default App
+export default App;
 
 //https://stackoverflow.com/questions/57137094/implementing-a-countdown-timer-in-react-with-hooks
 //https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks
