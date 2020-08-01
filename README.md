@@ -1,6 +1,6 @@
 # Stretching-Timer
-A 30-second interval timer built in React.js
+An interval timer built in React.js that will ping once each interval is up, so you know when to switch stretches.
 
-![Stretching Timer screenshot](/public/timer.png)
+![Stretching Timer screenshot](/public/timer2.png)
 
 http://stretching-timer.herokuapp.com/
