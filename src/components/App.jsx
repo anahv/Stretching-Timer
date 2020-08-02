@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const initialIntervals = 30;
-  const initialIntervalDuration = 30;
+  const initialIntervals = 1;
+  const initialIntervalDuration = 5;
 
   const [totalIntervals, setTotalIntervals] = useState(initialIntervals);
   const [intervalDuration, setIntervalDuration] = useState(initialIntervalDuration);
   const [remainingIntervals, setRemainingIntervals] = useState(totalIntervals);
   const [isActive, setIsActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(initialIntervalDuration);
 
   const bringAudio = new Audio(
     "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
@@ -15,37 +16,41 @@ function App() {
     "http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3");
 
   const Timer = () => {
-    const [timeLeft, setTimeLeft] = useState(intervalDuration);
-
     useEffect(
       () => {
-        let interval = null;
-
-        if (isActive) {
-          interval = setInterval(function() {
-            setTimeLeft(timeLeft - 1);
+          let interval = setInterval(function() {
+            if (isActive && timeLeft !== 0) {
+              setTimeLeft(timeLeft - 1)
+            } else if (isActive) {
+              setRemainingIntervals(remainingIntervals - 1)
+              setTimeLeft(intervalDuration)
+              bringAudio.play()
+            }
           }, 1000);
-        } else if (!isActive && timeLeft !== 0) {
+        if (!isActive && timeLeft !== 0) {
           clearInterval(interval);
+        } else if (isActive && timeLeft !== 0 && remainingIntervals == 0)
+        {
+          setIsActive(false)
+          setTimeLeft(0)
         }
         return () => clearInterval(interval);
       },
-      [timeLeft]
+      [isActive]
     );
 
-    if (remainingIntervals === 0) {
-      if (!timeLeft) {
+    if (remainingIntervals === 1) {
+      if (timeLeft === 0) {
         bringAudio.play();
+        console.log("called 1");
       } else if (timeLeft < 6) {
         popAudio.play();
+        console.log("called 2 ");
       }
-    } else if (remainingIntervals > 0 && timeLeft === 0) {
-      setRemainingIntervals(remainingIntervals - 1);
-      bringAudio.play();
     }
 
+
     function start() {
-      setTimeLeft(intervalDuration);
       setIsActive(true);
     }
 
@@ -63,7 +68,7 @@ function App() {
       <div>
         <div className="timer row">
           <div className="col-md-12">
-            <h1> {timeLeft} </h1>{" "}
+            <h1>{timeLeft} </h1>
           </div>
         </div>
         <div className="buttons row">
@@ -128,7 +133,8 @@ function App() {
             <button
               id="plus"
               onClick={x => {
-                setIntervalDuration(intervalDuration - 5);
+                setIntervalDuration(intervalDuration - 5)
+                setTimeLeft(timeLeft - 5)
               }}
             >
               <i className="fa fa-minus"> </i>
@@ -136,7 +142,8 @@ function App() {
             <button
               id="plus"
               onClick={x => {
-                setIntervalDuration(intervalDuration + 5);
+                setIntervalDuration(intervalDuration + 5)
+                setTimeLeft(timeLeft + 5)
               }}>
               <i className="fa fa-plus"> </i>
             </button>
