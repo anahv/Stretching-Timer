@@ -75,7 +75,7 @@ function App() {
             Start <i className="fa fa-play"> </i>
           </button>
           <button id="pause" className="button col-md-2" onClick={pauseTimer}>
-            Stop <i className="fa fa-pause"> </i>
+            Pause <i className="fa fa-pause"> </i>
           </button>
           <button
             id="restart"
