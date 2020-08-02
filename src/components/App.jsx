@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const initialIntervals = 1;
-  const initialIntervalDuration = 5;
+  const initialIntervals = 30;
+  const initialIntervalDuration = 30;
 
   const [totalIntervals, setTotalIntervals] = useState(initialIntervals);
   const [intervalDuration, setIntervalDuration] = useState(initialIntervalDuration);
@@ -48,7 +48,6 @@ function App() {
         console.log("called 2 ");
       }
     }
-
 
     function start() {
       setIsActive(true);
